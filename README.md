@@ -1,7 +1,7 @@
 # NPPES NPI Registry API Kotlin Client
 --------------------------------------
 
-git init(https://npiregistry.cms.hhs.gov/).
+A Kotlin (Java) client library for accessing the [NPPES NPI Registry](https://npiregistry.cms.hhs.gov/).
 
 ## Quick Start
 --------------
