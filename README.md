@@ -3,6 +3,8 @@
 
 A Kotlin (Java) client library for accessing the [NPPES NPI Registry](https://npiregistry.cms.hhs.gov/).
 
+This repo is under active development.
+
 ## Quick Start
 --------------
 
@@ -11,6 +13,6 @@ A Kotlin (Java) client library for accessing the [NPPES NPI Registry](https://np
 <dependency>
     <groupId>io.zhkv.api</groupId>
     <artifactId>nppesnpi-kotlin-api-client</artifactId>
-    <version>0.1.0</version>
+    <version>0.1.0-SNAPSHOT</version>
 </dependency>
 ```
