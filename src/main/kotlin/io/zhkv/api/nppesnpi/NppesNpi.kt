@@ -18,38 +18,67 @@ package io.zhkv.api.nppesnpi
 
 import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.databind.ObjectMapper
+import mu.KotlinLogging
 import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.net.HttpURLConnection
 import java.net.URL
 
+private val logger = KotlinLogging.logger {}
+
+/**
+ * This class is behave as a wrapper for internal <i>get(url: String)</i> function,
+ * providing the ability to use [NppesRequest] or [NppesRequestBuilder] to perform the api call.
+ */
 class NppesNpi {
 
+    /**
+     * Companion object of a NppesNpi.
+     */
     companion object {
         private val objectMapper: ObjectMapper by lazy {
             ObjectMapper().also { it.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false) }
         }
 
+        /**
+         * Performs the get request to NPPES NPI Registry based on a given [NppesRequest].
+         *
+         * @param NppesRequest the type of the request
+         * @property request the request
+         * @return the [NppesResponse] as a response
+         */
         @JvmStatic
         fun get(request: NppesRequest): NppesResponse =
                 objectMapper.readValue(get(request.url()), NppesResponse::class.java)
 
+        /**
+         * Performs the get request to NPPES NPI Registry based on a given [NppesRequestBuilder]. This function may be
+         * more suitable to use with Java based application.
+         *
+         * @param NppesRequestBuilder the type of the request
+         * @property request the request
+         * @return the [NppesResponse] as a response
+         */
         @JvmStatic
         fun get(request: NppesRequestBuilder): NppesResponse =
                 objectMapper.readValue(get(request.build().url()), NppesResponse::class.java)
     }
 }
 
-private fun get(url: String): String {
+/**
+ * Performs the request to NPPES NPI Registry based on provided url and return response as a string.
+ *
+ * @param String the type of the request
+ * @property url the request
+ * @return the [NppesResponse] as a response
+ */
+internal fun get(url: String): String {
     val obj = URL(url)
 
     with(obj.openConnection() as HttpURLConnection) {
-        // optional default is GET
-        requestMethod = "GET"
 
-
-        println("\nSending 'GET' request to URL : $url")
-        println("Response Code : $responseCode")
+        logger.info { "Sending request to NPPES NPI Registry: $url" }
+        logger.info { "Response code: $responseCode" }
 
         BufferedReader(InputStreamReader(inputStream)).use {
             val response = StringBuffer()
@@ -59,7 +88,9 @@ private fun get(url: String): String {
                 response.append(inputLine)
                 inputLine = it.readLine()
             }
-            return response.toString()
+            return response.toString().also {
+                logger.debug { "Response body: $it" }
+            }
         }
     }
 }

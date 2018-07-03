@@ -18,6 +18,10 @@ package io.zhkv.api.nppesnpi
 
 import com.fasterxml.jackson.annotation.JsonProperty
 
+/**
+ * This class enumerates the possible address purposes. Refers to whether the address information entered pertains to
+ * the provider's Mailing Address or the provider's Practice Location Address.
+ */
 enum class AddressPurpose {
     LOCATION,
     MAILING,
@@ -25,9 +29,21 @@ enum class AddressPurpose {
     SECONDARY
 }
 
+/**
+ * This class enumerates the possible enumeration types. Can be refined to retrieve only Individual Providers or
+ * Organizational Providers.
+ *
+ * @property value the actual value of enumeration type.
+ */
 enum class EnumerationType(val value: String) {
+    /**
+     * Refers to Individual Providers (Type 1) NPIs
+     */
     @JsonProperty("NPI-1")
     NPI_1("NPI-1"),
+    /**
+     * Refers to Organizational Providers (Type 2) NPIs
+     */
     @JsonProperty("NPI-2")
     NPI_2("NPI-2")
 }
