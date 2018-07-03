@@ -4,7 +4,7 @@
 
     <groupId>io.zhkv.api</groupId>
     <artifactId>nppesnpi-kotlin-api-client</artifactId>
-    <version>0.3.2-SNAPSHOT</version>
+    <version>0.3.4</version>
     <packaging>jar</packaging>
 
     <name>TestRail API Java Client</name>
