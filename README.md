@@ -13,6 +13,6 @@ This repo is under active development.
 <dependency>
     <groupId>io.zhkv.api</groupId>
     <artifactId>nppesnpi-kotlin-api-client</artifactId>
-    <version>0.1.0-SNAPSHOT</version>
+    <version>0.3.4</version>
 </dependency>
 ```
