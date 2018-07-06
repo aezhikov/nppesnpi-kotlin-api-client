@@ -79,6 +79,11 @@ data class NppesRequest(
          */
         val skip: Int = 0
 ) {
+    init {
+        if (limit !in 1..200) throw IllegalArgumentException("Limit must be within range 1..200")
+        if (skip < 0) throw IllegalArgumentException("Skip value must be grater than zero.")
+    }
+
     /**
      * Base URL, which is used to build request URL.
      */
@@ -280,7 +285,9 @@ class NppesRequestBuilder {
      * @param [skip] to be set
      * @return this [NppesRequestBuilder]
      */
-    fun withSkip(skip: Int): NppesRequestBuilder = this.also { it.skip = skip }
+    fun withSkip(skip: Int): NppesRequestBuilder =
+            if (skip >= 0) this.also { it.skip = skip }
+            else throw IllegalArgumentException("The sip value must be equal or greater than zero.")
 
     /**
      * Builds the [NppesRequest] based on givven data.
